@@ -22,8 +22,20 @@ var startGame = function() {
   
 // function to end the entire game
 var endGame = function() {
-window.alert("The game has now ended. Let's see how you did!");
-  
+    window.alert("The game has now ended. Let's see how you did!");
+    var highScore = localStorage.getItem("highScore");
+    if (highScore === null) {
+        highScore = 0;
+    }
+
+    if (playerInfo.money > highScore) {
+        localStorage.setItem("highScore", playerInfo.money);
+        localStorage.setItem("name", playerInfo.name)
+
+        alert(playerInfo.name + " now has the high score of " + playerInfo.money);
+    } else {
+        alert(playerInfo.name + " did not beat the high score of " + highScore) 
+    }
 // if player is still alive, player wins!
 if (playerInfo.health > 0) {
     window.alert("Great job, you've survived the game! You now have a score of" + playerInfo.money + '.');
@@ -152,7 +164,7 @@ var getPlayerName = function() {
 var playerInfo = {
     name: getPlayerName(),
     health: 100,
-    attack: 10,
+    attack: 100,
     money: 10,
     reset: function() {
       this.health = 100;
